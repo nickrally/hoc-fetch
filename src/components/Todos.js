@@ -10,21 +10,13 @@ class Todos extends React.Component {
         </ul>)
   }
   
-  /* render() {
+  render() {
     return (
         <div>
           {this.renderTodos()}
           <button onClick={() => this.props.getData("https://jsonplaceholder.typicode.com/posts")}>
             Load Data
           </button>
-        </div>
-      );
-  } */
-  render() {
-    return (
-        <div>
-          {this.renderTodos()}
-            Load Data
         </div>
       );
   }

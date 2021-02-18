@@ -11,10 +11,7 @@ function hocWithFetch(WrappedComponent, requestUrl) {
       }
       
       componentDidMount() {
-        if (requestUrl) {
-          console.log(`fetching from ${requestUrl} in componentDidMount`);
-          this.fetchData(requestUrl);
-        }
+        console.log(`no fetching in componentDidMount`);
       }
       
       fetchData = async (requestUrl) => {
@@ -40,20 +37,12 @@ function hocWithFetch(WrappedComponent, requestUrl) {
         }
       };
       
-      /* render() {
-        return (
-          <WrappedComponent 
-            {...this.state}
-            {...this.props} 
-            getData={(requestUrl) => this.fetchData(requestUrl)}
-            />
-        )
-      } */
       render() {
         return (
           <WrappedComponent 
             {...this.state}
             {...this.props} 
+            getData={(requestUrl) => this.fetchData(requestUrl)}
             />
         )
       }
