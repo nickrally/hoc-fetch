@@ -1,33 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
   
 function hocWithFetch(WrappedComponent, requestUrl) {
     
-  class WithFetch extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = {
-          data: []
-        };
-      }
+  const WithFetch = (props) => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+      if (requestUrl) fetchData(requestUrl);
+    }, []);  
       
-      componentDidMount() {
-        console.log(`no fetching in componentDidMount`);
-      }
       
-      fetchData = async (requestUrl) => {
-        this.setState({
-          data: []
-        });
-        
+    const fetchData = async (requestUrl) => {
         try {
           const response = await fetch(requestUrl);
           
           if (response.ok) {
             const data = await response.json();
-            //console.log('data:', data)
-            this.setState({
-              data
-            });  
+            setData(data)  ;
           } else {
             throw new Error('Fetch request error');
           }
@@ -37,15 +25,13 @@ function hocWithFetch(WrappedComponent, requestUrl) {
         }
       };
       
-      render() {
         return (
           <WrappedComponent 
-            {...this.state}
-            {...this.props} 
+            data={data} 
+            {...props}
             getData={(requestUrl) => this.fetchData(requestUrl)}
             />
         )
-      }
     }
     
     return WithFetch; 
